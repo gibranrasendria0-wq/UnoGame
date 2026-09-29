@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Color Clash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<button class="music-toggle" id="musicBtn">🔊</button>
+
+  <!-- LOBBY -->
+  <div id="lobby">
+    <div class="logo-box">
+      <div class="logo-title">COLOR</div>
+      <div class="logo-sub">CLASH</div>
+    </div>
+
+    <div class="section-title">Pilih Mode</div>
+    <div class="mode-cards">
+      <div class="mode-card active" data-mode="ai" onclick="selectMode('ai')">
+        <div class="icon">🤖</div>
+        <h3>vs AI</h3>
+        <p>Lawan Bot</p>
+      </div>
+      <div class="mode-card" data-mode="multi" onclick="selectMode('multi')">
+        <div class="icon">👥</div>
+        <h3>Multiplayer</h3>
+        <p>Pass & Play</p>
+      </div>
+    </div>
+
+    <div class="diff-section show" id="diffSection">
+      <div class="section-title" style="margin-bottom:4px;">Tingkat Kesulitan AI</div>
+      <div class="diff-btns">
+        <button class="diff-btn" data-diff="easy" onclick="setDiff('easy')">Easy</button>
+        <button class="diff-btn active" data-diff="normal" onclick="setDiff('normal')">Normal</button>
+        <button class="diff-btn" data-diff="impossible" onclick="setDiff('impossible')">Impossible</button>
+      </div>
+    </div>
+
+    <div class="players-section" id="playersSection">
+      <div class="section-title" style="margin-bottom:4px;">Jumlah Pemain</div>
+      <div class="player-btns">
+        <button class="player-btn" data-n="2" onclick="setPlayers(2)">2</button>
+        <button class="player-btn active" data-n="3" onclick="setPlayers(3)">3</button>
+        <button class="player-btn" data-n="4" onclick="setPlayers(4)">4</button>
+      </div>
+    </div>
+
+    <button class="btn-start" onclick="startGame()">MAINKAN 🎮</button>
+  </div>
+
+  <!-- GAME -->
+  <div id="game">
+    <div class="top-bar">
+      <button class="btn-lobby" onclick="confirmLobby()">← Lobby</button>
+      <div class="turn-msg" id="turnMsg">Giliranmu</div>
+      <div style="width:58px;"></div>
+    </div>
+
+    <div class="player-info" id="playerInfo"></div>
+
+    <div class="table-area">
+      <div class="table-meta">
+        <div class="direction-indicator" id="direction">➡️</div>
+        <div class="current-color" id="currentColor"></div>
+      </div>
+      <div class="discard-pile" id="discardPile"></div>
+      <div class="draw-pile" id="drawPile" onclick="drawCard()"></div>
+      <button class="last-btn" id="lastBtn" onclick="callLast()">LAST!</button>
+    </div>
+
+    <div class="hand-area">
+      <div class="hand" id="hand"></div>
+    </div>
+
+    <div class="pass-overlay" id="passOverlay">
+      <h2 id="passName">Giliran Player 2</h2>
+      <p>Serahkan HP ke pemain berikutnya</p>
+      <button class="btn-primary" style="max-width:220px;margin-top:8px;" onclick="revealHand()">Saya Siap</button>
+    </div>
+  </div>
+
+  <!-- Color Picker -->
+  <div class="modal" id="colorModal">
+    <div class="modal-content">
+      <h2>Pilih Warna</h2>
+      <div class="color-grid">
+        <button class="color-btn red" onclick="chooseColor('red')">Merah</button>
+        <button class="color-btn blue" onclick="chooseColor('blue')">Biru</button>
+        <button class="color-btn green" onclick="chooseColor('green')">Hijau</button>
+        <button class="color-btn yellow" onclick="chooseColor('yellow')">Kuning</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Over -->
+  <div class="modal" id="gameOverModal">
+    <div class="modal-content gameover-content">
+      <div class="trophy" id="trophy">🏆</div>
+      <h2 id="winnerText">Kamu Menang!</h2>
+      <p id="scoreText">Hebat!</p>
+      <div class="btn-group">
+        <button class="btn-primary" onclick="tryAgain()">Coba Lagi</button>
+        <button class="btn-secondary" onclick="backToLobby()">Kembali ke Lobby</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <audio id="bgm" loop preload="auto">
+    <source src="https://soundimage.org/wp-content/uploads/2020/12/Adventures-in-Suburbia.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="js/game.js"></script>
+</body>
+</html>
